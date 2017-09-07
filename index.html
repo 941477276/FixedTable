@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>左右两侧固定列，中间内容可以横向拖动</title>
+    <link rel="stylesheet" href="css/fixed-table.css" />
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="js/fixed-table.js"></script>
+    <style>
+        .fixed-table-box{
+            width: 800px;
+            margin: 50px auto;
+        }
+        .fixed-table-box>.fixed-table_body-wraper{/*内容了表格主体内容有纵向滚动条*/
+            max-height: 260px;
+        }
+        
+        .fixed-table_fixed>.fixed-table_body-wraper{/*为了让两侧固定列能够同步表格主体内容滚动*/
+            max-height: 240px;
+        }
+
+        .w-150{
+            width: 150px;
+        }
+        .w-120{
+            width: 120px;
+        }
+        .w-300{
+            width: 300px;
+        }
+        .w-100{
+            width: 100px;
+        }
+        .btns{
+            text-align: center;
+        }
+        .btns button{
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-table-box row-col-fixed">
+        <!-- 表头 start -->
+        <div class="fixed-table_header-wraper">
+            <table class="fixed-table_header" cellspacing="0" cellpadding="0" border="0">
+                <thead>
+                    <tr>
+                        <th class="w-150" data-fixed="true"><div class="table-cell">日期</div></th>
+                        <th class="w-120"><div class="table-cell">姓名</div></th>
+                        <th class="w-120"><div class="table-cell">省份</div></th>
+                        <th class="w-120"><div class="table-cell">市区</div></th>
+                        <th class="w-300"><div class="table-cell">地址</div></th>
+                        <th class="w-120"><div class="table-cell">邮编</div></th>
+                        <th class="w-100" data-fixed="true" data-direction="right"><div class="table-cell">操作</div></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- 表头 end -->
+        <!-- 表格内容 start -->
+        <div class="fixed-table_body-wraper">
+            <table class="fixed-table_body" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        <td class="w-120"><div class="table-cell">王小虎</div></td>
+                        <td class="w-120"><div class="table-cell">上海</div></td>
+                        <td class="w-120"><div class="table-cell">普陀区</div></td>
+                        <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>
+                        <td class="w-120"><div class="table-cell">200333</div></td>
+                        <td class="w-100">
+                            <div class="table-cell">
+                                <a href="###">查看</a>
+                                <a href="###">编辑</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 表格内容 end -->
+
+        <!-- 固定列 start -->
+        <div class="fixed-table_fixed fixed-table_fixed-left">
+            <div class="fixed-table_header-wraper">
+                <table class="fixed-table_header" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th class="w-150"><div class="table-cell">日期</div></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            
+            <div class="fixed-table_body-wraper">
+                <table class="fixed-table_body" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                        <tr>
+                            <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="fixed-table_fixed fixed-table_fixed-right">
+            <div class="fixed-table_header-wraper">
+                <table class="fixed-table_header" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th class="w-100"><div class="table-cell">操作</div></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            
+            <div class="fixed-table_body-wraper">
+                <table class="fixed-table_body" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-100">
+                                <div class="table-cell">
+                                    <a href="###">查看</a>
+                                    <a href="###">编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 固定列 end -->
+    </div>
+
+    <div class="btns">
+        <button type="button" id="empty_data">清空数据</button>
+        <button type="button" id="add_data">添加数据</button>
+        <button type="button" id="del_row">删除行</button>
+    </div>
+
+    <script>
+        //初始化FixedTable
+        $(".fixed-table-box").fixedTable();
+
+        //清空表格
+        $("#empty_data").on("click", function (){
+            $(".fixed-table-box").emptyTable();
+        });
+        //添加数据
+        $("#add_data").on("click", function (){
+            $(".fixed-table-box").addRow(function (){
+                var html = '';
+                for(var i = 0; i < 5; i ++){
+                    html += '<tr>';
+                    html += '    <td class="w-150"><div class="table-cell"> 2016-05-03</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">王小虎</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">上海</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">普陀区</div></td>';
+                    html += '    <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">200333</div></td>';
+                    html += '    <td class="w-100">';
+                    html += '        <div class="table-cell">';
+                    html += '            <a href="###">查看</a>';
+                    html += '            <a href="###">编辑</a>';
+                    html += '        </div>';
+                    html += '    </td>';
+                    html += '</tr>';
+                }
+                return html;
+            });
+        });
+        //删除指定行
+        $("#del_row").on("click", function (){
+            $(".fixed-table-box").deleteRow($(".fixed-table-box").children('.fixed-table_fixed-left').children('.fixed-table_body-wraper').find('tr').eq(0));
+        });
+    </script>
+</body>
+</html>

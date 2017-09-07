@@ -1,0 +1,175 @@
+/*
+* @Author: 李燕南
+* @Date:   2017-08-30 09:23:26
+* @Last Modified by:   李燕南
+* @Last Modified time: 2017-09-07 11:16:33
+*/
+@charset "utf-8";
+
+body{
+    margin: 0;
+    padding: 0;
+}
+.fixed-table-box table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+.fixed-table-box tr,
+.fixed-table-box td,
+.fixed-table-box th {
+  box-sizing: border-box;
+}
+
+.fixed-table-box{
+    position: relative;
+    font-size: 14px;
+    line-height: 1.42858;
+    border: 1px solid #dfe6ec;
+    border-bottom: 0;
+    border-right: 0;
+    overflow: hidden;
+}
+.fixed-table-box:before{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #dfe6ec;
+}
+.fixed-table-box:after{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: " ";
+    width: 1px;
+    height: 100%;
+    background-color: #dfe6ec;
+}
+.fixed-table-box .fixed-table_header,
+.fixed-table-box .fixed-table_body{
+    width: auto;
+}
+.fixed-table-box table{
+    background-color: #fff;
+    border: 0;
+}
+.fixed-table-box th,
+.fixed-table-box td{
+    position: relative;
+    text-align: left;
+    padding: 5px 0;
+    border: 1px solid #dfe6ec;
+}
+.fixed-table-box .table-cell{
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 15px;
+}
+/* 表头 start */
+.fixed-table-box>.fixed-table_header-wraper{
+    overflow: hidden;
+}
+.fixed-table-box .fixed-table_header.fixed-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.fixed-table-box .fixed-table_header tr{
+    background-color: #eef1f6;
+}
+.fixed-table-box .fixed-table_header th{
+    color: #1f2d3d;
+    border-top: 0;
+    border-left: 0;
+}
+/* 表头 end */
+
+/*表格内容 start*/
+.fixed-table-box .fixed-table_body td{
+    border-top: 0;
+    border-left: 0;
+}
+.fixed-table-box .fixed-table_body tr.rowHover{
+    background-color: #eef1f6;
+}
+/*表格内容 end*/
+
+/* 行固定表格 start*/
+.fixed-table-box.head-fixed .fixed-table_body-wraper{
+    overflow-y: auto;
+}
+.fixed-table-box.head-fixed .fixed-table_header,
+.fixed-table-box.head-fixed .fixed-table_body{
+    width: 100%;
+}
+/* 行固定表格 end*/
+
+/* 列固定表格 start */
+.fixed-table-box.col-fixed{
+    /* overflow-x: auto; */
+    border-right: 1px solid #eef1f6;
+}
+.fixed-table-box.col-fixed:after{
+    display: none;
+}
+.fixed-table-box.col-fixed .fixed-table_header-wraper{
+    /*设置它为overflow: hidden的目的是为了在拖动.fixed-table-box.col-fixed .fixed-table_body-wraper
+    的时候可以同步的拖动.fixed-table-box.col-fixed .fixed-table_header-wraper*/
+    overflow: hidden;
+}
+.fixed-table-box.col-fixed .fixed-table_body-wraper{
+    overflow-x: auto;
+}
+/* 列固定表格 end */
+
+/* 固定列 start */
+.fixed-table_fixed{
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    background-color: #fff;
+    overflow: hidden;
+}
+.fixed-table_fixed-left{
+    left: 0;
+    box-shadow: 1px -1px 8px 1px #d3d4d6;
+}
+.fixed-table_fixed-right{
+    right: 0;
+    /* border-left: 1px solid #dfe6ec\0; */
+    box-shadow: -2px -1px 8px 1px #d3d4d6;
+}
+.fixed-table_fixed .fixed-table_header-wraper,
+.fixed-table_fixed .fixed-table_body-wraper{
+    overflow-y: hidden;
+}
+.fixed-table_fixed.fixed-table_fixed-right td{
+    border-right: none;
+    border-left: 1px solid #dfe6ec;
+}
+/* 固定列 end */
+
+/* 固定列和固定表头 start */
+.fixed-table-box.row-col-fixed>.fixed-table_body-wraper{
+    overflow: auto;
+}
+
+.fixed-table-box_fixed-right-patch{
+    /*右上角的遮罩，如果少了这块在右边有固定列并且表格内容右侧有滚动条时会出现镂空的效果*/
+    background-color: #eef1f6;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+/* 固定列和固定表头 end */

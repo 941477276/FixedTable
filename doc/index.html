@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+    <meta name="format-detection" content="telephone=notelphone=no, email=no" />
+    <meta name="description" content="" />
+    <meta name="wap-font-scale" content="no"><!--uc浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。这个可以禁止掉-->
+    <meta name="keywords" content="" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="apple-touch-fullscreen" content="yes"/><!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/><!-- 设置苹果工具栏颜色:默认值为 default，可以定为 black和 black-translucent-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><!-- 不让百度转码 -->
+    <meta name="HandheldFriendly" content="true"><!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="MobileOptimized" content="320"><!-- 微软的老式浏览器 -->
+    <meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+    <meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+    <meta name="x5-page-mode" content="app"><!-- QQ应用模式 -->
+    <meta name="msapplication-tap-highlight" content="no"><!-- windows phone 点击无高光 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"><!-- ios 开启对web app程序的支持 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"><!-- ios 改变顶部状态条的颜色 -->
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap-treeview/css/bootstrap-treeview.min.css" />
+    <link rel="stylesheet" href="../css/fixed-table.css" /><!-- 必须引入的css -->
+    <link rel="stylesheet" href="highlight/styles/default.css" />
+    <link rel="stylesheet" href="css/doc.css" />
+    <style>
+        .fixed-table-box{/*当表格的宽度大于.fixed-table-box的宽度时才会有横向滚动条*/
+            width: 800px;
+        }
+        .fixed-table-box>.fixed-table_body-wraper{/*如果数据过多并且想表格有纵向滚动条时，必须给该元素设置一个高度*/
+            max-height: 260px;
+        }
+        .fixed-table_fixed>.fixed-table_body-wraper{/*为了让两侧固定列能同步表格主体内容滚动*/
+            max-height: 240px;
+        }
+
+        .test-fixedTable .fixed-table_body-wraper{
+            width: 100%;
+        }
+
+        .w-150{
+            width: 150px;
+        }
+        .w-120{
+            width: 120px;
+        }
+        .w-300{
+            width: 300px;
+        }
+        .w-100{
+            width: 100px;
+        }
+        ul,ol,p,h1{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script src="highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="header-fixed">
+                <h1>FixedTable 文档</h1>
+                <p class="remark">
+                    fixedTable是普通table的一个变体，在后台管理中我们经常使用表格，一个表格会有很多的列，并且每一列的长度还必须那么长，可能最后一列会有很多的操作按钮，这就会导致有很多的列会换行，这样就不美观了对于这样的表格我们该怎么办呢？最简单的办法就是说服产品，跟他说"你这个表格不能有那么多的列，否则最后一列的按钮就放不下了，会出现换行的效果，这样就不美观了！"。那除了这个办法还有别的办法没？答案是有的。FixedTable就是其中的解决方案之一！
+                </p>
+            </div>
+            <div class="main clearfix">
+                <div class="pull-left menu-tree scrollspy" id="menu_tree">
+                    <ul id="nav" class="nav" data-spy="affix">
+                        <li><a href="#anchor_demo">效果演示</a></li>
+                        <li>
+                            <a href="#anchor_UploadPreview">jQuery插件模式</a>
+                            <ul class="nav">
+                                <li>
+                                    <a href="#anchor_fixedTable">fixedTable</a>
+                                </li>
+                               <li>
+                                    <a href="#anchor_getRow">getRow</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_addRow">addRow</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_deleteRow">deleteRow</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_emptyTable">emptyTable</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_calFixedColHeight">calFixedColHeight</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_calFixedTableWidth">calFixedTableWidth</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_getScrollWidth">getScrollWidth</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_isIE">isIE</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#anchor_ajax">ajax异步模式</a>
+                            <ul class="nav">
+                                <li>
+                                    <a href="#anchor_params">参数配置</a>
+                                    <!-- <ul class="nav">
+                                        <li>
+                                            <a href="#anchor_wrap">wrap</a>
+                                        </li>
+                                       <li>
+                                            <a href="#anchor_type">type</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_fields">fields</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_extraClass">extraClass</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_hoverClass">hoverClass</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_maxHeight">maxHeight</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_tableDefaultContent">tableDefaultContent</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_onHover">onHover</a>
+                                        </li>
+                                        <li>
+                                            <a href="#anchor_init">init</a>
+                                        </li>
+                                    </ul> -->
+                                </li>
+                                <li>
+                                    <a href="#anchor_addRow2">addRow</a>
+                                </li>
+                               <li>
+                                    <a href="#anchor_getRow2">getRow</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_deleteRow2">deleteRow</a>
+                                </li>
+                                <li>
+                                    <a href="#anchor_empty">empty</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <div>
+                        <h3 id="anchor_demo">效果演示</h3>
+                        <div id="fixed_table_demo"></div>
+                        <div class="mb-30"></div>
+                        <div>
+                            <div><a href="demo/head-fixed-table.html" target="_blank">表头固定</a></div>
+                            <div><a href="demo/row-fixed-table.html" target="_blank">横向滚动</a></div>
+                            <div><a href="demo/left-fixed-table.html" target="_blank">左侧固定</a></div>
+                            <div><a href="demo/right-fixed-table.html" target="_blank">右侧固定</a></div>
+                            <div><a href="demo/index.html" target="_blank">左右两侧固定，横纵向拖动</a></div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_UploadPreview">jQuery插件模式</h3>
+                        <h5>
+                            jQuery插件模式指的是表格的dom结构一加载就已经存在，表格里的数据由后端语言(Java、PHP、node.js等)直接填充！
+                        </h5>
+                        <p>需要引入的资源：</p>
+                        <pre class="html">
+    <code>
+        &lt;link rel="stylesheet" href="css/fixed-table.css" /&gt;
+        &lt;script src="jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+        &lt;script src="js/fixed-table.js"&gt;&lt;/script&gt;
+    </code>
+                        </pre>
+                        
+                        <br />
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_fixedTable">fixedTable</h3>        
+                        <ul class="signature">
+                            <li><code>$(".fixed-table-box").fixedTable()</code> => <code>$(".fixed-table-box")</code>对象</li>
+                        </ul>
+                        <p>
+                            调用fixedTable()方法后FixedTable才能有效！
+                            <a href="demo/index.html" target="_blank">查看demo</a>
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_getRow">getRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$(".fixed-table-box").getRow(row)</code> => 包含多个对象的数组
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>row</code> {索引、dom对象，jQuery实例}[必填] row参数可以为表格主体行、两侧固定列中的行的数字索引、dom对象，jQuery对象，无论是否能获取到行都会返回一个数组。
+                                返回的数组内容格式如下：<a href="demo/getRow.html" target="_blank">查看demo</a>
+                                <pre class="javascript">
+                                    <code>
+    [
+        {
+            bodyRow: tr,//表格主体中的行
+            leftFixedRow: tr,//左侧固定列的行
+            rightFixedRow: tr//右侧固定列的行
+        }
+    ]
+                                    </code>
+                                </pre>
+                            </li>
+                        </ul>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_addRow">addRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$(".fixed-table-box").addRow(rows)</code> => <code>$(".fixed-table-box")</code>对象
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>rows</code> {html字符串、dom对象、jQuery实例、function}[必填] 如果rows为一个function，则该function必须return
+                                html字符串或dom对象或jQuery实例
+                            </li>
+                        </ul>
+                        <p>
+                            addRow()方法是为了方便动态的添加一行而添加的一个方法，如果不调用此方法，自己用js添加一行也是可以的。但是如果有两侧的固定列那么就需要做很多事情了，1：除了给表格主体添加行外还需要给两侧的固定列添加相同的行；2：如果表格没有垂直滚动条，并且有两侧固定列，那么你还需要手动去计算两侧固定列的高度
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+                    
+                    <div>
+                        <h3 id="anchor_deleteRow">deleteRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$(".fixed-table-box").deleteRow(rows)</code> => <code>$(".fixed-table-box")</code>对象
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>rows</code> {html字符串、dom对象、jQuery实例、function}[必填] 如果rows为一个function，则该function必须return
+                                html字符串或dom对象或jQuery实例
+                            </li>
+                        </ul>
+                        <p>
+                            deleteRow()方法与addRow()方法类似，在删除了表格主体中指定的行后，如果有固定列，则会同时删除固定列中对应的行，并且计算固定列的高度
+                            <a href="demo/deleteRow.html" target="_blank">查看demo</a>
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_emptyTable">emptyTable</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$(".fixed-table-box").emptyTable(rows)</code> => <code>$(".fixed-table-box")</code>对象
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            emptyTable()可以清空表格的所有数据(表头部会清空)，如果有固定列则固定列的内容也会被清空，同时会计算固定列的高度
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_calFixedColHeight">calFixedColHeight</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$.calFixedColHeight($(".fixed-table-box"))</code> => <code>$(".fixed-table-box")</code>对象
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            $.calFixedColHeight()可以用来计算两侧固定列的高度
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_calFixedTableWidth">calFixedTableWidth</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$.calFixedTableWidth($(".fixed-table-box"))</code> => <code>$(".fixed-table-box")</code>对象
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            $.calFixedTableWidth()可以用来计算表格的实际宽度，如果table的父容器宽度是固定的，而table的宽度为auto，那么table的每一列都会自动调整宽度，并且表格显示的最大宽度就是其父容器的宽度，如果要实现可以横向拖动表格则必须设置表格的宽度为表格的实际宽度。
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_getScrollWidth">getScrollWidth</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$.getScrollWidth()</code> => 滚动条的宽度
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            $.getScrollWidth()可以用来获取浏览器滚动条的宽度（这个宽度指的是垂直滚动条的宽度）
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_isIE">isIE</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>$.isIE()</code> => true/false
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            $.isIE()可以用来判断浏览器是否是IE浏览器
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_ajax">ajax异步模式</h3>
+                        <h5>
+                            ajax模式指的是表格的dom结构完全由js动态生成，表格内容也由js动态填充。
+                        </h5>
+                        <p>需要引入的资源：</p>
+                        <pre class="html">
+    <code>
+        &lt;link rel="stylesheet" href="css/fixed-table.css" /&gt;
+        &lt;script src="jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+        &lt;script src="js/FixedTable.js"&gt;&lt;/script&gt;
+    </code>
+                        </pre>
+                        
+                        <br />
+                        <a href="ajax-demo/index.html" target="_blank">查看demo</a>
+                        <div class="mb-30"></div>
+                        <div>
+                            <div><a href="ajax-demo/index3.html" target="_blank">无垂直滚动条</a></div>
+                            <div><a href="ajax-demo/index4.html" target="_blank">表头固定</a></div>
+                            <div><a href="ajax-demo/left-fixed.html" target="_blank">左侧固定</a></div>
+                            <div><a href="ajax-demo/right-fixed.html" target="_blank">右侧固定</a></div>
+                            <div><a href="ajax-demo/index.html" target="_blank">左右两侧固定，横纵向拖动</a></div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <h3 id="anchor_params">参数配置</h3>
+                        <ul class="param-list">
+                            <li>
+                                <code>wrap</code>{select、dom、jQuery Object} [必填] <span class="mr-5">[默认: null]
+                                动态生产的table需要添加到哪个元素中
+                            </li>
+                            <li>
+                                <code>type</code>{string} [可选] <span class="mr-5">[默认: "row-col-fixed"]
+                                表格的类型，可选的值有head-fixed(表头固定)、col-fixed(列固定)、row-col-fixed(列固定，可横向拖动)
+                            </li>
+                            <li>
+                                <code>fields</code>{Array} [必填] <span class="mr-5">[默认: [] ]
+                                表格的表头.该参数必须是一个数组，数组中包含n个对象，对象的具体内容如下：
+                                <pre class="javascript">
+                                    <code>
+        [
+            {
+                class: "",//需添加在列上的class
+                width: "150px",//列的宽度
+                /*列显示的值。field可以是普通字符串，当field是普通字符串的时候会自动生成th然后将field的值赋值过去。
+                为了让表头也可以更加灵活field的值也可以是HTML代码，当field的值是HTML代码时htmlDom必须为true*/
+                field: "日期",
+                /*htmlDom表示传递的field是否是HTML字符串。如果htmlDom为true则表示field的值是html字符串，在htmlDom为
+                true的情况下传递的class、width、fieldId等参数都将失效。*/
+                htmlDom: false,
+                fieldId: ,//当前列的id
+                fixed: false,//当前列是否固定
+                fixedDirection: ""//如果是固定列，则该列的方向是在左边还是在右边。值可以为left、right。默认left
+            }
+        ]
+                                    </code>
+                                </pre>
+                                <a href="ajax-demo/htmlDom.html" target="_blank">查看demo</a>
+                                
+                            </li>
+                            <li>
+                                <code>extraClass</code>{string} [可选] <span class="mr-5">[默认: ""]
+                                需要添加到表格中的额外class
+                            </li>
+                            
+                            <li>
+                                <code>hoverClass</code>{string} [可选] <span class="mr-5">[默认: "rowHover"]
+                                鼠标移入表格中的每一行时添加的class，鼠标移出表格时会移除该class
+                            </li>
+                            <li>
+                                <code>maxHeight</code>{number} [可选] <span class="mr-5">[默认: 0]
+                                设置表格两侧固定列的最大高度，设置最大高度后可以随着表格主体内容上下滚动，它的值必须为number，如果不传递该参数则会自动计算
+                            </li>
+                            <li>
+                                <code>tableDefaultContent</code>{html string、dom、jQuery Object} [可选] <span class="mr-5">[默认: ""]
+                                表格数据还未添加进来时显示的默认内容
+                            </li>
+                            <li>
+                                <code>onHover</code>{Function} [可选] <span class="mr-5">[默认: function (){}]
+                                当鼠标移入到表格的每一行的时候执行的函数
+                            </li>
+                            <li>
+                                <code>init</code>{function} [可选] <span class="mr-5">[默认: function (){}]
+                                表格初始化完毕后执行的函数
+                            </li>
+                        </ul>
+                        <div class="mb-30"></div>
+                    </div>
+                    
+                    <div>
+                        <h3 id="anchor_addRow2">addRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>new FixedTable({...}).addRow(rows)</code> => 当前FixedTable实例对象
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>rows</code> {html字符串、dom对象、jQuery实例、function}[必填] 如果rows为一个function，则该function必须return
+                                html字符串或dom对象或jQuery实例
+                            </li>
+                        </ul>
+                        <p>
+                            addRow()方法可以为表格动态的添加一行或多行，如果表格有固定列，固定列也会添加相应的行，并且会重新计算固定列的高度
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+                    
+                    <div>
+                        <h3 id="anchor_deleteRow2">deleteRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>new FixedTable({...}).deleteRow(rows)</code> => 当前FixedTable实例对象
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>rows</code> {html字符串、dom对象、jQuery实例、function}[必填] 如果rows为一个function，则该function必须return
+                                html字符串或dom对象或jQuery实例
+                            </li>
+                        </ul>
+                        <p>
+                            deleteRow()方法与addRow()方法类似，在删除了表格主体中指定的行后，如果有固定列，则会同时删除固定列中对应的行，并且计算固定列的高度
+                            <a href="ajax-demo/deleteRow.html" target="_blank">查看demo</a>
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+                    
+                    <div>
+                        <h3 id="anchor_getRow2">getRow</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>new FixedTable({...}).getRow(row)</code> => 一个对象
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <code>row</code> {索引、dom对象，jQuery实例}[必填] row参数可以为表格主体行、两侧固定列中的行的数字索引、dom对象，jQuery对象，无论是否能获取到行都会返回一个对象。
+                                返回的对象内容格式如下：<a href="ajax-demo/getRow.html" target="_blank">查看demo</a>
+                                <pre class="javascript">
+                                    <code>
+        {
+            bodyRow: tr,//表格主体中的行
+            leftFixedRow: tr,//左侧固定列的行
+            rightFixedRow: tr//右侧固定列的行
+        }
+                                    </code>
+                                </pre>
+                            </li>
+                        </ul>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                    <div>
+                        <h3 id="anchor_empty">empty</h3>        
+                        <ul class="signature">
+                            <li>
+                                <code>new FixedTable({...}).empty(rows)</code> => 当前FixedTable实例对象
+                            </li>
+                        </ul>
+                        
+                        <p>
+                            emptyTable()可以清空表格的所有数据(表头部会清空)，如果有固定列则固定列的内容也会被清空，同时会计算固定列的高度
+                        </p>
+
+                        <div class="mb-30"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="jquery/jquery-1.12.4.min.js"></script>
+    <!-- 非必须 start -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="menu.js"></script>
+    <!-- 非必须 end -->
+    <script src="../js/fixed-table.js"></script>
+    <script src="../js/FixedTable.js"></script>
+    
+    <script>
+        var fixedTable = new FixedTable({
+                wrap: document.getElementById("fixed_table_demo"),//生成的表格需要放到哪里
+                type: "row-col-fixed",//表格类型，有：head-fixed、col-fixed、row-col-fixed
+                extraClass: "",//需要添加到表格中的额外class
+                maxHeight: true,
+                fields: [//表格的列
+                    {
+                        width: "150px",
+                        field: "日期",
+                        fixed: true
+                    },
+                    {
+                        width: "120px",
+                        field: "姓名",
+                        fixed: false
+                    },
+                    {
+                        width: "120px",
+                        field: "省份",
+                        //fixed: true,
+                        fixedDirection: "right"
+                    },
+                    {
+                        width: "120px",
+                        field: "市区"
+                    },
+                    {
+                        width: "300px",
+                        field: "地址",
+                       // fixed: true,
+                        fixedDirection: "right"
+                    },
+                    {
+                        width: "120px",
+                        field: "邮编",
+                        
+                    },
+                    {
+                        width: "100px",
+                        field: "操作",
+                        fixed: true,
+                        fixedDirection: "right"
+                    }
+                ],
+                tableDefaultContent: "<div>我是一个默认的div</div>"
+            });
+            //添加数据
+            fixedTable.addRow(function (){
+                var html = '';
+                for(var i = 0; i < 5; i ++){
+                    html += '<tr>';
+                    html += '    <td class="w-150"><div class="table-cell">2016-05-03=' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">王小虎' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">上海' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">普陀区' + i + '</div></td>';
+                    html += '    <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">200333' + i + '</div></td>';
+                    html += '    <td class="w-100">';
+                    html += '        <div class="table-cell">';
+                    html += '            <a href="###">查看</a>';
+                    html += '            <a href="###">编辑</a>';
+                    html += '        </div>';
+                    html += '    </td>';
+                    html += '</tr>';
+                }
+                return html;
+            });
+            fixedTable.addRow(function (){
+                var html = '';
+                for(var i = 0; i < 5; i ++){
+                    html += '<tr>';
+                    html += '    <td class="w-150"><div class="table-cell">2016-05-03' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">王小虎' + i + '-a</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">上海' + i + '-a</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">普陀区' + i + '-a</div></td>';
+                    html += '    <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路' + i + '</div></td>';
+                    html += '    <td class="w-120"><div class="table-cell">200333' + i + '-a</div></td>';
+                    html += '    <td class="w-100">';
+                    html += '        <div class="table-cell">';
+                    html += '            <a href="###">查看</a>';
+                    html += '            <a href="###">编辑</a>';
+                    html += '        </div>';
+                    html += '    </td>';
+                    html += '</tr>';
+                }
+                return html;
+            });
+    </script>
+
+</body>
+</html>
