@@ -2,7 +2,7 @@
 * @Author: 李燕南
 * @Date:   2017-08-30 16:52:50
 * @Last Modified by:   李燕南
-* @Last Modified time: 2017-09-07 10:05:00
+* @Last Modified time: 2017-09-20 19:58:19
 */
 ;(function (factory){
     if ( typeof define === "function" && define.amd ) {
@@ -47,7 +47,7 @@
                 */
                 fields: [],//表格的列
                 /*设置表格内容的最大高度，设置最大高度后可以上下滚动，它的值必须为number，如果不传递该参数则会自动计算*/
-                maxHeight: 0,
+                maxHeight: undefined,
                 onHover: function (){},
                 hoverClass: "rowHover",//鼠标移动到每一行上时需要添加的class
                 tableDefaultContent: "",//表格数据还未添加进来时显示的默认内容，可以是html字符串、dom对象、jQuery对象
@@ -599,7 +599,8 @@
             width = 0;
         cloneTable.css({
             position: "fixed",
-            left: "-2000px"
+            left: "-2000px",
+            width: "auto"
         });
         $("body").append(cloneTable);
         width = cloneTable.width();
