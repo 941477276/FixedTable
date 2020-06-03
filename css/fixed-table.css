@@ -11,9 +11,14 @@ body{
     padding: 0;
 }
 .fixed-table-box table {
+  margin: 0;
+  padding: 0;
   border-spacing: 0;
-  border-collapse: collapse;
   box-sizing: border-box;
+  border: 0;
+  table-layout: fixed;
+  border-collapse: separate;
+  background-color: #fff;
 }
 .fixed-table-box tr,
 .fixed-table-box td,
@@ -50,30 +55,40 @@ body{
     height: 100%;
     background-color: #dfe6ec;
 }
+/* 解决右侧有滚动条滚动时头部会有错误问题 */
+.fixed-table-box>.fixed-table_header-wraper{
+    position: relative;
+    overflow: hidden;
+    /*margin-right: 17px;*/
+}
+/*解决有横向滚动条时头部会有留白问题*/
+.fixed-table_header-wraper-right-patch{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: #eef1f6;
+}
 .fixed-table-box .fixed-table_header,
 .fixed-table-box .fixed-table_body{
     width: auto;
 }
-.fixed-table-box table{
-    background-color: #fff;
-    border: 0;
-}
 .fixed-table-box th,
 .fixed-table-box td{
     position: relative;
-    text-align: left;
     padding: 5px 0;
     border: 1px solid #dfe6ec;
+    text-align: left;
 }
 .fixed-table-box .table-cell{
     display: block;
-    height: 30px;
-    line-height: 30px;
-    word-break: break-all;
-    white-space: nowrap;
+    /*height: 30px;
+    line-height: 30px;*/
+    /*word-break: break-all;
     overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left: 15px;
+    text-overflow: ellipsis;*/
+    white-space: nowrap;
+    padding: 0 10px;
 }
 /* 表头 start */
 .fixed-table-box>.fixed-table_header-wraper{
@@ -150,10 +165,17 @@ body{
     /* border-left: 1px solid #dfe6ec\0; */
     box-shadow: -2px -1px 8px 1px #d3d4d6;
 }
+.fixed-table_fixed.no-shadow{
+    box-shadow: none;
+}
 .fixed-table_fixed .fixed-table_header-wraper,
 .fixed-table_fixed .fixed-table_body-wraper{
     overflow-y: hidden;
 }
+.fixed-table_fixed table{
+    overflow: hidden;
+}
+.fixed-table_fixed.fixed-table_fixed-right th,
 .fixed-table_fixed.fixed-table_fixed-right td{
     border-right: none;
     border-left: 1px solid #dfe6ec;

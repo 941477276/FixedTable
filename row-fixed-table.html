@@ -9,7 +9,7 @@
     <style>
         h1{
             text-align: center;
-            padding-top: 30px;   
+            padding-top: 30px;
         }
         .fixed-table-box{
             width: 800px;
@@ -38,13 +38,13 @@
             <table class="fixed-table_header" cellspacing="0" cellpadding="0" border="0">
                 <thead>
                     <tr>
-                        <th class="w-150"><div class="table-cell">日期</div></th>
-                        <th class="w-120"><div class="table-cell">姓名</div></th>
-                        <th class="w-120"><div class="table-cell">省份</div></th>
-                        <th class="w-120"><div class="table-cell">市区</div></th>
-                        <th class="w-300"><div class="table-cell">地址</div></th>
-                        <th class="w-120"><div class="table-cell">邮编</div></th>
-                        <th class="w-100"><div class="table-cell">操作</div></th>
+                        <th data-width="140" class="w-150"><div class="table-cell">日期</div></th>
+                        <th data-width="120" class="w-120"><div class="table-cell">姓名</div></th>
+                        <th data-width="120" class="w-120"><div class="table-cell">省份</div></th>
+                        <th data-width="120" class="w-120"><div class="table-cell">市区</div></th>
+                        <th data-width="220" class="w-300"><div class="table-cell">地址</div></th>
+                        <th data-width="120" class="w-120"><div class="table-cell">邮编</div></th>
+                        <th data-width="100" class="w-100"><div class="table-cell">操作</div></th>
                     </tr>
                 </thead>
             </table>
@@ -175,7 +175,7 @@
     <script>
         $(function (){
             $(".fixed-table-box").fixedTable();
-        });        
+        });
     </script>
 </body>
 </html>
