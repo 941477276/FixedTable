@@ -8,7 +8,7 @@
     <script src="../../js/fixed-table.js"></script>
     <style>
         .fixed-table-box{
-            width: 800px;
+            width: 700px;
             margin: 50px auto;
         }
         .fixed-table_body-wraper{
@@ -17,7 +17,7 @@
         .fixed-table-box>.fixed-table_body-wraper{/*内容了表格主体内容有纵向滚动条*/
             max-height: 260px;
         }
-        
+
         .fixed-table_fixed>.fixed-table_body-wraper{/*为了让两侧固定列能够同步表格主体内容滚动*/
             max-height: 240px;
         }
@@ -43,11 +43,11 @@
             <table class="fixed-table_header" cellspacing="0" cellpadding="0" border="0">
                 <thead>
                     <tr>
-                        <th class="w-150"><div class="table-cell">日期</div></th>
+                        <th data-width="140" class="w-150"><div class="table-cell">日期</div></th>
                         <th class="w-120"><div class="table-cell">姓名</div></th>
                         <th class="w-120"><div class="table-cell">省份</div></th>
                         <th class="w-120"><div class="table-cell">市区</div></th>
-                        <th class="w-300"><div class="table-cell">地址</div></th>
+                        <th data-width="220" class="w-300"><div class="table-cell">地址</div></th>
                         <th class="w-120" data-fixed="true" data-direction="right"><div class="table-cell">邮编</div></th>
                         <th class="w-100" data-fixed data-direction="right"><div class="table-cell">操作</div></th>
                     </tr>
@@ -188,7 +188,7 @@
                     </thead>
                 </table>
             </div>
-            
+
             <div class="fixed-table_body-wraper">
                 <table class="fixed-table_body" cellspacing="0" cellpadding="0" border="0">
                     <tbody>
